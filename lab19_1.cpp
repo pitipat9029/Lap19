@@ -20,20 +20,75 @@ string toUpperStr(string x){
     return y;
 }
 
-void importDataFromFile(){
+void importDataFromFile(string filename,vector<string> &names,vector<int> &scores,vector<char> &grades){
+    ifstream source ;
+    source.open(filename);
+    string text ;
 
+    int s1 ,s2 ,s3 ;
+    char Name[100] ;
+    char format[] = "%[^:]: %d %d %d" ;
+
+    while(getline(source,text)) {
+        char* chartext = const_cast<char*>(text.c_str());
+        sscanf(chartext,format,Name,&s1,&s2,&s3);
+
+        string N = Name ;
+        int sums = s1+s2+s3 ;
+        char G =  score2grade(sums) ;
+        names.push_back(N);
+        scores.push_back(sums);
+        grades.push_back(G) ;
+
+    }
+    source.close();
 }
 
-void getCommand(){
-
+void getCommand(string command, string &key){
+    cout << "Please input your command : " ;
+    cin >> command >> key ;
 }
 
-void searchName(){
-
+void searchName(vector<string>names, vector<int>scores, vector<char>grades,string key){
+    for (int i = 0; i < names.size() ; ++i) {
+        if( toUpperStr(names[i])  == key){
+            cout << "---------------------------------\n";
+            cout << names[i] << "'s score = " << scores[i] << "\n" ;
+            cout << names[i] << "'s grade = " << grades[i] << "\n" ;
+            cout << "---------------------------------\n";
+            break ;
+        }else if (toUpperStr(names[i])  != key ) {
+           if ( i+1 == names.size() ) {
+                cout << "---------------------------------\n";
+                cout << "Cannot found.\n" ;
+                cout << "---------------------------------\n";
+            }
+            
+        }
+    }
+   
 }
 
-void searchGrade(){
 
+
+
+void searchGrade(vector<string>names, vector<int>scores, vector<char>grades,string key){
+    for (int i = 0; i < names.size() ; ++i) {
+        if( toUpperStr(names[i])  == key){
+            cout << "---------------------------------\n";
+            cout << names[i] << "'s score = " << scores[i] << "\n" ;
+            cout << names[i] << "'s grade = " << grades[i] << "\n" ;
+            cout << "---------------------------------\n";
+            break ;
+        }else if (toUpperStr(names[i])  != key ) {
+           if ( i+1 == names.size() ) {
+                cout << "---------------------------------\n";
+                cout << "Cannot found.\n" ;
+                cout << "---------------------------------\n";
+            }
+            
+        }
+    }
 }
 
 
